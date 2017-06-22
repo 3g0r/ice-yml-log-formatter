@@ -5,7 +5,8 @@ logging.conf example
 ^^^^^^^^^^^^^^^^^^^^
 
 .. code::
-# https://docs.python.org/3.6/library/logging.config.html
+
+  # https://docs.python.org/3.6/library/logging.config.html
   #
   # Level	        Numeric value
   # CRITICAL      50
@@ -40,7 +41,8 @@ logging.conf example
 simple usage example
 ^^^^^^^^^^^^^^^^^^^^
 .. code:: python
-import os
+
+  import os
   import logging.config
   import logging
 
@@ -68,7 +70,8 @@ Use `ice_current` for ice request metatada print, and `context` for extra struct
 log example
 ^^^^^^^^^^^
 .. code::
-[DEBUG] services.fun - Dispatch
+
+  [DEBUG] services.fun - Dispatch
     iceIdentity: ZeroC/Fun
     iceOperation: something
     iceRequestId: 1
