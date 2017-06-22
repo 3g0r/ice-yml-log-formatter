@@ -46,7 +46,6 @@ simple usage example
   import logging.config
   import logging
 
-  logging.getLogger()
   logging.config.fileConfig('./logging.conf')
 
   #....
@@ -84,8 +83,8 @@ log example
       error_data:
         some_prop: 1
       stack_trace:
-          File "path-to-source/fun.py", line 71, in wrapped
-            return method(self, *args, **kwargs)
+        File "path-to-source/fun.py", line 71, in wrapped
+          return method(self, *args, **kwargs)
 
-          File "path-to-source/fun.py", line 123, in something
-            raise Fun.ExampleException(some_prop=1)
+        File "path-to-source/fun.py", line 123, in something
+          raise Fun.ExampleException(some_prop=1)

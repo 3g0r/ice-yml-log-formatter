@@ -117,7 +117,7 @@ class YAMLLogFormatter(logging.Formatter):
         return (f'Error: {exc_type}{message}\n' +
                 info +
                 indentation('stack_trace:\n') +
-                indentation('\n'.join(exc_traceback.format()), 4))
+                indentation('\n'.join(exc_traceback.format())))
 
     def formatMessage(self, record):
         return self.record_to_string(record)
