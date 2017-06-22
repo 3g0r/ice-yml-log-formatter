@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 setup(
     name='ice-yml-log-formatter',
     packages=['ice_yml_log_formatter'],
-    version='0.1.1',
+    version='0.1.2',
     description='ZeroC Ice logging utils',
     author='3g0r',
     author_email='eg0r.n1k0l43v@gmail.com',
