@@ -1,6 +1,7 @@
 import logging
 import re
 import traceback
+from collections import ChainMap
 
 from yaml import safe_dump
 
@@ -19,9 +20,27 @@ def indentation(text, space_size=2):
     return regxp.sub(rf'{space}\1', text)
 
 
-def to_plain_objects(any_value):
+def to_plain_objects(any_value, depth=0):
+    if any_value is Ice.Unset:
+        return ''
+
     if isinstance(any_value, Ice.Identity):
         return Ice.identityToString(any_value)
+
+    if isinstance(any_value, Ice.Object):
+        return dict(ChainMap({'ice_id': any_value.ice_id()},
+                             {k: to_plain_objects(v, depth + 1)
+                              for k, v in any_value.__dict__.items()}))
+
+    if depth >= 2:
+        return any_value
+
+    if isinstance(any_value, list):
+        return [to_plain_objects(v, depth) for v in any_value]
+
+    if type(any_value) is dict:
+        return {k: to_plain_objects(v, depth + 1)
+                for k, v in any_value.items()}
 
     return any_value
 
@@ -35,6 +54,20 @@ def get_request_context(current):
         iceOperation=current.operation,
         iceIdentity=Ice.identityToString(current.id),
     )
+
+
+def get_context_string(record):
+    context = get_request_context(record.get('ice_current', None))
+
+    if record.get('context'):
+        context = {**context,
+                   'context': dict(record.get('context', {}))}
+
+    if context:
+        return safe_dump(
+            to_plain_objects(context),
+            default_flow_style=False,
+            allow_unicode=True)
 
 
 class YAMLLogFormatter(logging.Formatter):
@@ -95,18 +128,15 @@ class YAMLLogFormatter(logging.Formatter):
 
     def record_to_string(self, record):
         message = self._style.format(record)
-        context = dict(vars(record).get('context', {}))
-        info_data = get_request_context(vars(record).get('ice_current', None))
-        if context:
-            info_data = {**info_data, 'context': context}
+        context = None
+        try:
+            context = get_context_string(vars(record))
+        except Exception as e:
+            print(e)
+            print(traceback.extract_tb(e.__traceback__).format())
 
-        if info_data:
-            info = ("\n" +
-                    indentation(
-                        safe_dump(
-                            to_plain_objects(info_data),
-                            default_flow_style=False,
-                            allow_unicode=True)))
+        if context:
+            info = f'\n{indentation(context)}'
         else:
             info = ''
 

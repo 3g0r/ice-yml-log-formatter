@@ -58,14 +58,14 @@ simple usage example
     raise Exception('Any cause')
   except:
     logging.exception('Oops!',
-                              extra={
-                                'ice_current': current,
-                                'context': {
-                                  'any_info_key': 'any info value',
-                                },
-                              })
+                      extra={
+                        'ice_current': current,
+                        'context': {
+                          'any_info_key': 'any info value',
+                        },
+                      })
 
-Use `ice_current` for ice request metatada print, and `context` for extra structured information
+Use ``ice_current`` for ice request metatada print, and ``context`` for extra structured information.
 
 log example
 ^^^^^^^^^^^
