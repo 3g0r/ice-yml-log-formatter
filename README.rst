@@ -5,8 +5,7 @@ logging.conf example
 ^^^^^^^^^^^^^^^^^^^^
 
 .. code::
-
-  # https://docs.python.org/3.6/library/logging.config.html
+# https://docs.python.org/3.6/library/logging.config.html
   #
   # Level	        Numeric value
   # CRITICAL      50
@@ -38,12 +37,10 @@ logging.conf example
   format=[%(levelname)s] %(name)s: %(msg)s
   datefmt=
 
-For pass extra info
 simple usage example
 ^^^^^^^^^^^^^^^^^^^^
 .. code:: python
-
-  import os
+import os
   import logging.config
   import logging
 
@@ -66,10 +63,12 @@ simple usage example
                                 },
                               })
 
+Use `ice_current` for ice request metatada print, and `context` for extra structured information
+
 log example
 ^^^^^^^^^^^
 .. code::
-  [DEBUG] services.fun - Dispatch
+[DEBUG] services.fun - Dispatch
     iceIdentity: ZeroC/Fun
     iceOperation: something
     iceRequestId: 1
@@ -78,6 +77,8 @@ log example
     iceIdentity: ZeroC/Fun
     iceOperation: something
     iceRequestId: 1
+    context:
+      any_info_key: any info value
     Error: Fun::ExampleException
       error_data:
         some_prop: 1
