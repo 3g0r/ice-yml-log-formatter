@@ -46,8 +46,6 @@ simple usage example
   import logging.config
   import logging
 
-  from ice_yml_log_formatter import get_request_context
-
   logging.getLogger()
   logging.config.fileConfig('./logging.conf')
 
