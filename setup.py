@@ -13,7 +13,7 @@ setup(
     long_description=open('README.rst').read(),
     license='MIT',
     install_requires=[
-        'PyYAML==3.12',
+        'PyYAML==5.1',
         'zeroc-ice==3.6.3'
     ],
     include_package_data=True,
